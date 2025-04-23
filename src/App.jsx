@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { Suspense } from 'react'
 import { Link, NavLink, Routes, Route, useSearchParams } from 'react-router-dom'
 
 function App() {
@@ -24,9 +25,15 @@ function App() {
 
   return (
     <>
+    <Suspense fallback={<p>...</p>}>
       <Routes>
         <Route path='/'>
-          <Route path='movies/:id'></Route>
+          <Route path='/movies'>
+            <Route path='movies/:id'>
+              <Route path='movies/:id/cast'></Route>
+              <Route path='movies/:id/reviews'></Route>
+            </Route>
+          </Route>
         </Route>
       </Routes>
       <input type='text'/>
@@ -37,6 +44,7 @@ function App() {
           ))}
         </div>
       </div>
+    </Suspense>
     </>
   )
 }
